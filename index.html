@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nprealible.jastip</title>
+    <!-- Font Poppins, Dancing Script & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ----- OPTIMASI RENDER 60 FPS MOBILE ----- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            
+            /* Background gradasi pink, maroon, putih */
+            background: linear-gradient(135deg, #ff85a1, #800000, #ffffff, #ff4d6d);
+            background-size: 300% 300%;
+            animation: gradientBG 10s ease infinite;
+            will-change: background-position;
+            transform: translate3d(0, 0, 0);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ----- BACKGROUND TEKS BERGERAK 60 FPS ----- */
+        .marquee-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            z-index: 1;
+            opacity: 0.85; 
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .marquee-row {
+            white-space: nowrap;
+            display: flex;
+            line-height: 1;
+            will-change: transform;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .marquee-content {
+            display: flex;
+            gap: 20px;
+            font-size: 5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #ffffff;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+            transform: translate3d(0, 0, 0);
+        }
+
+        .move-left {
+            animation: marqueeLeft 14s linear infinite;
+        }
+
+        .move-right {
+            animation: marqueeRight 14s linear infinite;
+        }
+
+        @keyframes marqueeLeft {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        @keyframes marqueeRight {
+            0% { transform: translate3d(-50%, 0, 0); }
+            100% { transform: translate3d(0, 0, 0); }
+        }
+
+        /* ----- ANIMASI PESAWAT TERBANG 60 FPS ----- */
+        .flying-plane {
+            position: absolute;
+            z-index: 2;
+            color: #ffffff;
+            font-size: 32px;
+            pointer-events: none;
+            will-change: transform, opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            animation: flyAcross 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+        }
+
+        @keyframes flyAcross {
+            0% {
+                transform: translate3d(-100px, 100px, 0) rotate(25deg) scale(0.6);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                transform: translate3d(50vw, -30vh, 0) rotate(45deg) scale(1.1);
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(100vw, -80vh, 0) rotate(60deg) scale(0.6);
+                opacity: 0;
+            }
+        }
+
+        /* ----- KARTU UTAMA BIO LINK ----- */
+        .container {
+            position: relative;
+            z-index: 3;
+            width: 88%;
+            max-width: 380px;
+            background: rgba(15, 15, 15, 0.82); 
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            margin: 20px 0;
+            
+            transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        /* Foto Profil Logo */
+        .profile-box {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 12px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            will-change: transform;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -6px, 0); }
+        }
+
+        .store-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .store-subtitle {
+            color: #cccccc;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        /* ----- ANIMASI MENGETIK UNTUK DESKRIPSI ----- */
+        .store-description {
+            font-family: 'Dancing Script', cursive;
+            color: #ffffff;
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin: 0 auto 12px;
+            opacity: 0.95;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            
+            /* Efek Mengetik */
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid rgba(255, 255, 255, 0.85);
+            animation: typing 3.5s steps(30, end) infinite, blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            0% { width: 0; }
+            50%, 80% { width: 100%; }
+            100% { width: 0; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: rgba(255, 255, 255, 0.85); }
+        }
+
+        /* Icon Instagram */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .social-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            
+            will-change: transform;
+            transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translate3d(0, 0, 0);
+        }
+
+        .social-btn:active, .social-btn:hover {
+            transform: translate3d(0, 0, 0) scale(1.12) rotate(8deg);
+            background: #ffffff;
+            color: #800000;
+        }
+
+        /* ----- TOMBOL LINK (TEKS PRESISI TENGAH) ----- */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-btn {
+            display: grid;
+            grid-template-columns: 24px 1fr 24px; /* Ikon Kiri | Teks Tengah | Penyeimbang Kanan */
+            align-items: center;
+            text-decoration: none;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 12px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 1.2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            
+            will-change: transform;
+            transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.25s ease;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .link-btn i {
+            font-size: 18px;
+            justify-self: center;
+        }
+
+        .link-btn span {
+            justify-self: center;
+            letter-spacing: 0.3px;
+        }
+
+        .link-btn:active, .link-btn:hover {
+            background: #ffffff;
+            color: #800000;
+            transform: translate3d(0, -3px, 0);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PESAWAT TERBANG BERGERAK -->
+    <div class="flying-plane">
+        <i class="fa-solid fa-plane"></i>
+    </div>
+
+    <!-- TEKS BACKGROUND BERGERAK -->
+    <div class="marquee-bg">
+        <div class="marquee-row move-left">
+            <div class="marquee-content">
+                <span>NPREALIBLE.JASTIP</span> • <span>NPREALIBLE.JASTIP</span> •
+            </div>
+            <div class="marquee-content">
+                <span>NPREALIBLE.JASTIP</span> • <span>NPREALIBLE.JASTIP</span> •
+            </div>
+        </div>
+        <div class="marquee-row move-right">
+            <div class="marquee-content">
+                <span>NPREALIBLE.JASTIP</span> • <span>NPREALIBLE.JASTIP</span> •
+            </div>
+            <div class="marquee-content">
+                <span>NPREALIBLE.JASTIP</span> • <span>NPREALIBLE.JASTIP</span> •
+            </div>
+        </div>
+        <div class="marquee-row move-left">
+            <div class="marquee-content">
+                <span>NPREALIBLE.JASTIP</span> • <span>NPREALIBLE.JASTIP</span> •
+            </div>
+            <div class="marquee-content">
+                <span>NPREALIBLE.JASTIP</span> • <span>NPREALIBLE.JASTIP</span> •
+            </div>
+        </div>
+        <div class="marquee-row move-right">
+            <div class="marquee-content">
+                <span>NPREALIBLE.JASTIP</span> • <span>NPREALIBLE.JASTIP</span> •
+            </div>
+            <div class="marquee-content">
+                <span>NPREALIBLE.JASTIP</span> • <span>NPREALIBLE.JASTIP</span> •
+            </div>
+        </div>
+        <div class="marquee-row move-left">
+            <div class="marquee-content">
+                <span>NPREALIBLE.JASTIP</span> • <span>NPREALIBLE.JASTIP</span> •
+            </div>
+            <div class="marquee-content">
+                <span>NPREALIBLE.JASTIP</span> • <span>NPREALIBLE.JASTIP</span> •
+            </div>
+        </div>
+    </div>
+
+    <!-- KARTU UTAMA -->
+    <div class="container">
+        <!-- Foto Profil Logo -->
+        <div class="profile-box">
+            <img src="logo.jpg" alt="Nprealible.jastip Logo" class="profile-img">
+        </div>
+        
+        <!-- Informasi Nama Toko -->
+        <h1 class="store-title">NPREALIBLE.JASTIP</h1>
+        <p class="store-subtitle">JOGJA - MERAUKE - JAYAPURA</p>
+        
+        <!-- Deskripsi Dengan Animasi Mengetik -->
+        <div>
+            <p class="store-description">" Titipanmu.Perjalanan kami "</p>
+        </div>
+        
+        <!-- Icon IG Klik -->
+        <div class="social-icons">
+            <a href="https://www.instagram.com/npreliable.jastip?srtk=OGp1bnhhY3Frcmhu" class="social-btn" target="_blank" title="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+
+        <!-- Daftar 5 Tombol Link (Teks Presisi di Tengah) -->
+        <div class="links-container">
+            <!-- 1. Admin Jogja -->
+            <a href="https://wa.me/6281245819546" class="link-btn" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>Admin Jogja</span>
+                <div></div>
+            </a>
+
+            <!-- 2. Admin Merauke 1 -->
+            <a href="https://wa.me/6282197639646" class="link-btn" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>Admin Merauke 1</span>
+                <div></div>
+            </a>
+            
+            <!-- 3. Admin Merauke 2 -->
+            <a href="https://wa.me/6282259180114" class="link-btn" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>Admin Merauke 2</span>
+                <div></div>
+            </a>
+            
+            <!-- 4. Maps Jogja -->
+            <a href="https://share.google/qTHlgXmxODuY4EBEC" class="link-btn" target="_blank">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Maps Jogja</span>
+                <div></div>
+            </a>
+            
+            <!-- 5. Maps Merauke -->
+            <a href="https://maps.app.goo.gl/A77CZHMMMmRhFQHw8" class="link-btn" target="_blank">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Maps Merauke</span>
+                <div></div>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            &copy; 2026 Nprealible.jastip. All rights reserved.<br>
+            Design By Steven D
+        </div>
+    </div>
+
+</body>
+</html>
